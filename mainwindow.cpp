@@ -11,6 +11,8 @@ BorderlessMainWindow::BorderlessMainWindow(QWidget *parent) : QMainWindow(parent
 
   mMainWindow = new MainWindow(this);
   setWindowTitle(mMainWindow->windowTitle());
+  mMainWindow->statusBar()->setSizeGripEnabled(true);
+  mMainWindow->setWindowFlags(Qt::FramelessWindowHint);
 
   QVBoxLayout *verticalLayout = new QVBoxLayout();
   verticalLayout->setSpacing(0);
@@ -122,9 +124,9 @@ void BorderlessMainWindow::slot_closed() {
 /*
 MainWindow class: put all your code here
 */
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent, Qt::FramelessWindowHint), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent/*, Qt::FramelessWindowHint*/), ui(new Ui::MainWindow) {
   ui->setupUi(this);
-  statusBar()->setSizeGripEnabled(true);
+
 }
 
 MainWindow::~MainWindow() {
