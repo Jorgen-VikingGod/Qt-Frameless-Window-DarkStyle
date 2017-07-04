@@ -23,6 +23,27 @@ Look is based on the VS2013 application window (flat and frameless window)
 * add your custom QMainWindow code into the class **MainWindow**
 * the class **BorderlessMainWindow** is just to add frameless window support and styling
 * to use the dark style, add ``#include "DarkStyle.h"`` insto **main.cpp** and call ``CDarkStyle::assign();``
+```qt
+#include "mainwindow.h"
+#include <QApplication>
+#include <QPalette>
+
+#include "DarkStyle.h"
+
+int main(int argc, char *argv[])
+{
+  QApplication a(argc, argv);
+
+  // apply dark style
+  CDarkStyle::assign();
+
+  // create and show frameless window
+  BorderlessMainWindow w;
+  w.show();
+
+  return a.exec();
+}
+```
 
 ## features
 * frameless window
