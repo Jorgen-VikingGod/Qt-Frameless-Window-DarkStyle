@@ -19,27 +19,35 @@ Look is based on the VS2013 application window (flat and frameless window)
 * tested on Windows7 and MacOSX 10.12.5
 
 ## How to use
-* edit mainwindow.cpp/.h
-* add your custom QMainWindow code into the class **MainWindow**
-* the class **BorderlessMainWindow** is just to add frameless window support and styling
-* to use the dark style, add ``#include "DarkStyle.h"`` insto **main.cpp** and call ``CDarkStyle::assign();``
-```qt
-#include "mainwindow.h"
-#include <QApplication>
-#include <QPalette>
+* add additional include plath to **framelesswindow**
+* add resources **framelesswindow.qrc** and **darkstyle.qrc**
+* add ``#include "framelesswindow.h"`` into **main.cpp**, create window ``FramelessWindow framelessWindow;`` and assign your mainwindow as content ``framelessWindow.setContent(&mainWindow);`` and show it ``framelessWindow.show();``
+* add ``#include "DarkStyle.h"`` into **main.cpp** and call ``CDarkStyle::assign();``
 
+```qt
+#include <QApplication>
 #include "DarkStyle.h"
+#include "framelesswindow.h"
+#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
 
-  // apply dark style
+  // style our application with custom dark style
   CDarkStyle::assign();
 
-  // create and show frameless window
-  BorderlessMainWindow w;
-  w.show();
+  // create frameless window (and set windowState or title)
+  FramelessWindow framelessWindow;
+  //framelessWindow.setWindowState(Qt::WindowMaximized);
+  //framelessWindow.setWindowTitle("test title");
+
+  // create our mainwindow
+  MainWindow mainWindow;
+
+  // add the mainwindow to our custom frameless window
+  framelessWindow.setContent(&mainWindow);
+  framelessWindow.show();
 
   return a.exec();
 }
@@ -52,6 +60,7 @@ int main(int argc, char *argv[])
 * buttons (minimize | restore | maximize | close)
 * move window by drag the title bar
 * dobule click title bar to toggle between window styte (maximize and normal)
+* use of native events, like minimizing or system menu
 
 ## Licence
 > The MIT License
