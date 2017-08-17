@@ -1,19 +1,38 @@
-#include "mainwindow.h"
-#include <QApplication>
-#include <QPalette>
+/*
+###############################################################################
+#                                                                             #
+# GNU LESSER GENERAL PUBLIC LICENSE                                           #
+# Version 3, 29 June 2007                                                     #
+#                                                                             #
+# Copyright (C) 2017 by Juergen Skrotzky (JorgenVikingGod@gmail.com)          #
+# Sources: https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle  #
+#                                                                             #
+###############################################################################
+*/
 
+#include <QApplication>
 #include "DarkStyle.h"
+#include "framelesswindow.h"
+#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
 
-  // apply dark style
+  // style our application with custom dark style
   CDarkStyle::assign();
 
-  // create and show frameless window
-  BorderlessMainWindow w;
-  w.show();
+  // create frameless window (and set windowState or title)
+  FramelessWindow framelessWindow;
+  //framelessWindow.setWindowState(Qt::WindowMaximized);
+  //framelessWindow.setWindowTitle("test title");
+
+  // create our mainwindow
+  MainWindow mainWindow;
+
+  // add the mainwindow to our custom frameless window
+  framelessWindow.setContent(&mainWindow);
+  framelessWindow.show();
 
   return a.exec();
 }

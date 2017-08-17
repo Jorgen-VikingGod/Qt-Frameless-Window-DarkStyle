@@ -10,24 +10,38 @@
 ###############################################################################
 */
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef FRAMELESSWINDOW_H
+#define FRAMELESSWINDOW_H
 
-#include <QtWidgets>
+#include "ui_framelesswindow.h"
 
-namespace Ui {
-class MainWindow;
-}
-
-class MainWindow : public QMainWindow
+class FramelessWindow: public QWidget, private Ui::FramelessWindow
 {
   Q_OBJECT
+
 public:
-  explicit MainWindow(QWidget *parent = 0);
-  ~MainWindow();
+  explicit FramelessWindow(QWidget *parent = 0);
+  void setContent(QWidget *w);
+
 private:
-  Ui::MainWindow *ui;
+  void styleWindow(bool bActive, bool bNoState);
+
+public slots:
+  void setWindowTitle(const QString &text);
+
+private slots:
+  void on_applicationStateChanged(Qt::ApplicationState state);
+  void on_minimizeButton_clicked();
+  void on_restoreButton_clicked();
+  void on_maximizeButton_clicked();
+  void on_closeButton_clicked();
+  void on_windowTitlebar_doubleClicked();
+
+protected:
+  virtual void changeEvent(QEvent *event);
+
+protected:
+  QHBoxLayout contentLayout;
 };
 
-
-#endif // MAINWINDOW_H
+#endif // FRAMELESSWINDOW_H

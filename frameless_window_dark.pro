@@ -1,22 +1,36 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2017-06-23T12:13:52
-#
-#-------------------------------------------------
+###############################################################################
+#                                                                             #
+# GNU LESSER GENERAL PUBLIC LICENSE                                           #
+# Version 3, 29 June 2007                                                     #
+#                                                                             #
+# Copyright (C) 2017 by Juergen Skrotzky (JorgenVikingGod@gmail.com)          #
+# Sources: https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle  #
+#                                                                             #
+###############################################################################
 
+QT       += core gui
 
-QT        += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET     = frameless_window_dark
-TEMPLATE   = app
+INCLUDEPATH +="framelesswindow"
 
-SOURCES   += main.cpp\
-             mainwindow.cpp
+TARGET      =  QtFramelessWindowDarkStyle
+TEMPLATE    =  app
 
-HEADERS   += mainwindow.h \
-             DarkStyle.h
+SOURCES     += main.cpp\
+               mainwindow.cpp \
+               framelesswindow/framelesswindow.cpp \
+               framelesswindow/windowdragger.cpp
 
-FORMS     += mainwindow.ui
 
-RESOURCES += darkstyle.qrc
+HEADERS     += mainwindow.h \
+               framelesswindow/framelesswindow.h \
+               framelesswindow/windowdragger.h \
+               DarkStyle.h
+
+
+FORMS       += mainwindow.ui \
+               framelesswindow/framelesswindow.ui
+
+RESOURCES   += darkstyle.qrc \
+               framelesswindow.qrc
