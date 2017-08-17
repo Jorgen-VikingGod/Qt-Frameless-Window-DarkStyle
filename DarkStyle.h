@@ -1,10 +1,15 @@
-/******************************************************************************/
-/**
-@file          DarkStyle.h
-@copyright     (c) 2017 Juergen Skrotzky (JorgenVikingGod@gmail.com)
-@description   simple singleton to adjust style/palette/stylesheets
-*******************************************************************************
-*******************************************************************************/
+/*
+###############################################################################
+#                                                                             #
+# The MIT License                                                             #
+#                                                                             #
+# Copyright (C) 2017 by Juergen Skrotzky (JorgenVikingGod@gmail.com)          #
+#               >> https://github.com/Jorgen-VikingGod                        #
+#                                                                             #
+# Sources: https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle  #
+#                                                                             #
+###############################################################################
+*/
 
 #ifndef _CDarkStyle_HPP
 #define _CDarkStyle_HPP

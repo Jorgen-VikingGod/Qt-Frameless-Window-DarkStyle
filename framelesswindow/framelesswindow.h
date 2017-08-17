@@ -1,10 +1,11 @@
 /*
 ###############################################################################
 #                                                                             #
-# GNU LESSER GENERAL PUBLIC LICENSE                                           #
-# Version 3, 29 June 2007                                                     #
+# The MIT License                                                             #
 #                                                                             #
 # Copyright (C) 2017 by Juergen Skrotzky (JorgenVikingGod@gmail.com)          #
+#               >> https://github.com/Jorgen-VikingGod                        #
+#                                                                             #
 # Sources: https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle  #
 #                                                                             #
 ###############################################################################
