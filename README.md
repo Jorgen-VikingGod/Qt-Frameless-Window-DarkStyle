@@ -14,15 +14,18 @@ Look is based on the VS2013 application window (flat and frameless window)
   </tr>
 </table>
 
+
 ## Qt and OS
 * tested with Qt5.5.0 and Qt5.9.0
 * tested on Windows7 and MacOSX 10.12.5
+
 
 ## How to use
 * add additional include plath to **framelesswindow**
 * add resources **framelesswindow.qrc** and **darkstyle.qrc**
 * add ``#include "framelesswindow.h"`` into **main.cpp**, create window ``FramelessWindow framelessWindow;`` and assign your mainwindow as content ``framelessWindow.setContent(&mainWindow);`` and show it ``framelessWindow.show();``
 * add ``#include "DarkStyle.h"`` into **main.cpp** and call ``CDarkStyle::assign();``
+
 
 ```qt
 #include <QApplication>
@@ -53,6 +56,7 @@ int main(int argc, char *argv[])
 }
 ```
 
+
 ## features
 * frameless window
 * custom dark style (based on **Fusion style** with dark palette and custom stylesheets)
@@ -61,6 +65,12 @@ int main(int argc, char *argv[])
 * move window by drag the title bar
 * dobule click title bar to toggle between window styte (maximize and normal)
 * use of native events, like minimizing or system menu
+
+
+## todo
+* [resize window on each corner [#1]](https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle/issues/1)
+* [snap on screen edges [#3]](https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle/issues/3)
+
 
 ## Licence
 > The MIT License
