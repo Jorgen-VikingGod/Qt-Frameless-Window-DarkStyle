@@ -29,7 +29,7 @@ void WindowDragger::mousePressEvent(QMouseEvent *event)
   if (parent)
     parent = parent->parentWidget();
 
-  if(parent)
+  if (parent)
     wndPos = parent->pos();
 }
 
@@ -39,7 +39,7 @@ void WindowDragger::mouseMoveEvent(QMouseEvent *event)
   if (parent)
     parent = parent->parentWidget();
 
-  if(parent && mousePressed)
+  if (parent && mousePressed)
     parent->move(wndPos + (event->globalPos() - mousePos));
 }
 
