@@ -28,11 +28,11 @@ int main(int argc, char *argv[])
   //framelessWindow.setWindowState(Qt::WindowMaximized);
   //framelessWindow.setWindowTitle("test title");
 
-  // create our mainwindow
-  MainWindow mainWindow;
+  // create our mainwindow instance
+  MainWindow *mainWindow = new MainWindow;
 
   // add the mainwindow to our custom frameless window
-  framelessWindow.setContent(&mainWindow);
+  framelessWindow.setContent(mainWindow);
   framelessWindow.show();
 
   return a.exec();
