@@ -78,19 +78,19 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="leftMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="topMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="bottomMargin">
-          <number>4</number>
+          <number>0</number>
          </property>
          <item>
           <widget class="QLabel" name="titleText">
@@ -203,6 +203,7 @@
   height:16px;
   padding:4px;
   image:url(:/images/icon_window_close.png);
+  border-top-right-radius: 5px;
 }
 #closeButton:hover{
   background-color:palette(alternate-base);
