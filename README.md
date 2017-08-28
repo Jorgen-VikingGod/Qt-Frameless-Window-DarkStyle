@@ -72,6 +72,10 @@ int main(int argc, char *argv[])
 * [snap on screen edges [#3]](https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle/issues/3)
 
 
+## thanks
+Many thanks goes to the [Qt Forum](https://forum.qt.io/topic/80654/how-to-create-vs2013-like-frameless-window-with-dark-style) and especially to [Chris Kawa](https://forum.qt.io/user/chris-kawa) for pointing me to some usual issues and hints of great must have features. 
+
+
 ## Licence
 > The MIT License
 >
