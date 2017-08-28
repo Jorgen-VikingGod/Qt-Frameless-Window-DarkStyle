@@ -16,7 +16,12 @@
 
 FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
 {
-  setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint);
+  setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint);
+  // append minimize button flag in case of windows,
+  // for correct windows native handling of minimize function
+#if defined(Q_OS_WIN)
+  setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
+#endif
   setAttribute(Qt::WA_TranslucentBackground);
 
   setupUi(this);
