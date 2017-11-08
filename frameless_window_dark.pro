@@ -21,7 +21,8 @@ TEMPLATE    =  app
 SOURCES     += main.cpp\
                mainwindow.cpp \
                framelesswindow/framelesswindow.cpp \
-               framelesswindow/windowdragger.cpp
+               framelesswindow/windowdragger.cpp \
+               DarkStyle.cpp
 
 
 HEADERS     += mainwindow.h \
