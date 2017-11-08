@@ -23,8 +23,8 @@ Look is based on the VS2013 application window (flat and frameless window)
 ## How to use
 * add additional include plath to **framelesswindow**
 * add resources **framelesswindow.qrc** and **darkstyle.qrc**
-* add ``#include "framelesswindow.h"`` into **main.cpp**, create window ``FramelessWindow framelessWindow;`` and assign your mainwindow as content ``framelessWindow.setContent(&mainWindow);`` and show it ``framelessWindow.show();``
-* add ``#include "DarkStyle.h"`` into **main.cpp** and call ``CDarkStyle::assign();``
+* add ``#include "framelesswindow.h"`` into **main.cpp**, create window ``FramelessWindow framelessWindow;`` and assign your mainwindow object as content ``framelessWindow.setContent(mainWindow);`` and show it ``framelessWindow.show();``
+* add ``#include "DarkStyle.h"`` into **main.cpp** and call ``a.setStyle(new DarkStyle);``
 
 
 ```qt
