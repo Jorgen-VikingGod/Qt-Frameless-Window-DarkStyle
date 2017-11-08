@@ -38,18 +38,18 @@ int main(int argc, char *argv[])
   QApplication a(argc, argv);
 
   // style our application with custom dark style
-  CDarkStyle::assign();
+  a.setStyle(new DarkStyle);
 
   // create frameless window (and set windowState or title)
   FramelessWindow framelessWindow;
   //framelessWindow.setWindowState(Qt::WindowMaximized);
   //framelessWindow.setWindowTitle("test title");
 
-  // create our mainwindow
-  MainWindow mainWindow;
+  // create our mainwindow instance
+  MainWindow *mainWindow = new MainWindow;
 
   // add the mainwindow to our custom frameless window
-  framelessWindow.setContent(&mainWindow);
+  framelessWindow.setContent(mainWindow);
   framelessWindow.show();
 
   return a.exec();
