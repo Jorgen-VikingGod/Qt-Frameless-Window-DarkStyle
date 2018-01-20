@@ -59,7 +59,7 @@
       <item>
        <widget class="QCheckBox" name="checkBox_4">
         <property name="text">
-         <string>Disbale Widgets</string>
+         <string>Disable Widgets</string>
         </property>
         <property name="checked">
          <bool>false</bool>
