@@ -9,7 +9,7 @@ DarkStyle::DarkStyle(QStyle *style):
 { }
 
 QStyle *DarkStyle::styleBase(QStyle *style) const {
-    static QStyle *base = !style ? QStyleFactory::create("Fusion") : style;
+    static QStyle *base = !style ? QStyleFactory::create(QStringLiteral("Fusion")) : style;
     return base;
 }
 
@@ -53,12 +53,12 @@ void DarkStyle::polish(QApplication *app)
     defaultFont.setPointSize(defaultFont.pointSize()+1);
     app->setFont(defaultFont);
 
-    // loadstylesheet    
-    QFile qfDarkstyle(QString(":/darkstyle/darkstyle.qss"));
+    // loadstylesheet
+    QFile qfDarkstyle(QStringLiteral(":/darkstyle/darkstyle.qss"));
     if (qfDarkstyle.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         // set stylesheet
-        QString qsStylesheet = QString(qfDarkstyle.readAll());
+        QString qsStylesheet = QString::fromLatin1(qfDarkstyle.readAll());
         app->setStyleSheet(qsStylesheet);
         qfDarkstyle.close();
     }
