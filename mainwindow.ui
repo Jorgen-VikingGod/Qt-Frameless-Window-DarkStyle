@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>559</height>
+    <width>682</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -185,8 +185,8 @@
            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'.SF NS Text'; font-size:13pt;&quot;&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.SF NS Text'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;test&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
@@ -402,8 +402,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>670</width>
-     <height>20</height>
+     <width>682</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuTest">
@@ -443,6 +443,36 @@ p, li { white-space: pre-wrap; }
    <addaction name="actionTest3"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <property name="windowTitle">
+    <string>test 1</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QTextBrowser" name="textBrowser"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_2">
+   <property name="windowTitle">
+    <string>test2</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout_6">
+     <item>
+      <widget class="QTextEdit" name="textEdit_2"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionTest">
    <property name="text">
     <string>Test</string>
