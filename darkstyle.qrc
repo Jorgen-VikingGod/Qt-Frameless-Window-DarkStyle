@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>darkstyle/darkstyle.qss</file>
         <file>darkstyle/icon_close.png</file>
+        <file>darkstyle/icon_restore.png</file>
         <file>darkstyle/icon_undock.png</file>
         <file>darkstyle/icon_branch_closed.png</file>
         <file>darkstyle/icon_branch_end.png</file>
