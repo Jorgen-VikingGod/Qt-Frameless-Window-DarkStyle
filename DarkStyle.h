@@ -14,24 +14,16 @@
 #ifndef _DarkStyle_HPP
 #define _DarkStyle_HPP
 
-/* INCLUDE FILES **************************************************************/
 #include <QApplication>
 #include <QProxyStyle>
 #include <QStyleFactory>
 #include <QFont>
 #include <QFile>
 
-/* CLASS DECLARATION **********************************************************/
-/** CMainWindow class is a simple singleton to adjust style/palette/stylesheets
-*******************************************************************************/
 class DarkStyle : public QProxyStyle
 {
   Q_OBJECT
-  // PUBLIC MEMBERS *************************************************************    
-  // PROTECTED MEMBERS **********************************************************
-  // PRIVATE MEMBERS ************************************************************
-  // CONSTRUCTOR/DESTRUCTOR *****************************************************
-  // PUBLIC METHODS *************************************************************
+
 public:
   DarkStyle();
   explicit DarkStyle(QStyle *style);
@@ -41,14 +33,8 @@ public:
   void polish(QPalette &palette) override;
   void polish(QApplication *app) override;
 
-  // PROTECTED METHODS **********************************************************
-  // PRIVATE METHODS ************************************************************
 private:
-  QStyle *styleBase(QStyle *style=Q_NULLPTR) const;
+  QStyle *styleBase(QStyle *style = Q_NULLPTR) const;
 };
 
 #endif  // _DarkStyle_HPP
-
-//*****************************************************************************
-// END OF FILE
-//*****************************************************************************
