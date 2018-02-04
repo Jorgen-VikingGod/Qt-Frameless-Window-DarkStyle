@@ -16,8 +16,8 @@ Look is based on the VS2013 application window (flat and frameless window)
 
 
 ## Qt and OS
-* tested with Qt5.5.0 and Qt5.9.0
-* tested on Windows7 and MacOSX 10.12.5
+* tested with Qt5.5.0, Qt5.9.0 and Qt5.10.0
+* tested on Windows 7, Windows 10,MacOSX 10.12.5 and MacOS 10.13.2
 
 
 ## How to use
