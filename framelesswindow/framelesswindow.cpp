@@ -13,7 +13,6 @@
 
 #include <QGraphicsDropShadowEffect>
 #include "framelesswindow.h"
-#include <QDebug>
 
 FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
 {
