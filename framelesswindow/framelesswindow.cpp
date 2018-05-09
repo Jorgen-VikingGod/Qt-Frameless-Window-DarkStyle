@@ -28,6 +28,7 @@ FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
 
   restoreButton->setVisible(false);
 
+#if !defined(Q_OS_WIN)
   //shadow under window title text
   QGraphicsDropShadowEffect *textShadow = new QGraphicsDropShadowEffect;
   textShadow->setBlurRadius(4.0);
@@ -41,6 +42,7 @@ FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
   windowShadow->setColor(palette().color(QPalette::Highlight));
   windowShadow->setOffset(0.0);
   windowFrame->setGraphicsEffect(windowShadow);
+#endif
 
   // watch mouse clicks on icon label and fire own signals
   MouseButtonSignaler signaler;
