@@ -13,6 +13,7 @@
 
 #include <QGraphicsDropShadowEffect>
 #include "framelesswindow.h"
+#include <QDebug>
 
 FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
 {
@@ -28,19 +29,24 @@ FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
 
   restoreButton->setVisible(false);
 
-  //shadow under window title text
-  QGraphicsDropShadowEffect *textShadow = new QGraphicsDropShadowEffect;
-  textShadow->setBlurRadius(4.0);
-  textShadow->setColor(QColor(0,0,0));
-  textShadow->setOffset(0.0);
-  titleText->setGraphicsEffect(textShadow);
+  // add window shadow
+  if (   QSysInfo::productType() != "windows"
+     || (QSysInfo::productType() == "windows" && QSysInfo::productVersion() > "7") ) {
 
-  //window shadow
-  QGraphicsDropShadowEffect *windowShadow = new QGraphicsDropShadowEffect;
-  windowShadow->setBlurRadius(9.0);
-  windowShadow->setColor(palette().color(QPalette::Highlight));
-  windowShadow->setOffset(0.0);
-  windowFrame->setGraphicsEffect(windowShadow);
+     //shadow under window title text
+     QGraphicsDropShadowEffect *textShadow = new QGraphicsDropShadowEffect;
+     textShadow->setBlurRadius(4.0);
+     textShadow->setColor(QColor(0,0,0));
+     textShadow->setOffset(0.0);
+     titleText->setGraphicsEffect(textShadow);
+
+     //window shadow
+     QGraphicsDropShadowEffect *windowShadow = new QGraphicsDropShadowEffect;
+     windowShadow->setBlurRadius(9.0);
+     windowShadow->setColor(palette().color(QPalette::Highlight));
+     windowShadow->setOffset(0.0);
+     windowFrame->setGraphicsEffect(windowShadow);
+  }
 
   // watch mouse clicks on icon label and fire own signals
   MouseButtonSignaler signaler;
@@ -164,6 +170,10 @@ void FramelessWindow::on_minimizeButton_clicked()
 }
 
 void FramelessWindow::on_restoreButton_clicked() {
+  if (  QSysInfo::productType() == "windows"
+     && QSysInfo::productVersion() == "7") {
+    layout()->setMargin(15);
+  }
   restoreButton->setVisible(false);
   maximizeButton->setVisible(true);
   setWindowState(Qt::WindowNoState);
@@ -171,6 +181,10 @@ void FramelessWindow::on_restoreButton_clicked() {
 }
 void FramelessWindow::on_maximizeButton_clicked()
 {
+  if (  QSysInfo::productType() == "windows"
+     && QSysInfo::productVersion() == "7") {
+    layout()->setMargin(0);
+  }
   restoreButton->setVisible(true);
   maximizeButton->setVisible(false);
   setWindowState(Qt::WindowMaximized);
