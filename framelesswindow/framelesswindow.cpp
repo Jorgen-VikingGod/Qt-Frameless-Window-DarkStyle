@@ -164,6 +164,7 @@ void FramelessWindow::on_minimizeButton_clicked()
 }
 
 void FramelessWindow::on_restoreButton_clicked() {
+  layout()->setMargin(15);
   restoreButton->setVisible(false);
   maximizeButton->setVisible(true);
   setWindowState(Qt::WindowNoState);
@@ -171,6 +172,7 @@ void FramelessWindow::on_restoreButton_clicked() {
 }
 void FramelessWindow::on_maximizeButton_clicked()
 {
+  layout()->setMargin(0);
   restoreButton->setVisible(true);
   maximizeButton->setVisible(false);
   setWindowState(Qt::WindowMaximized);
