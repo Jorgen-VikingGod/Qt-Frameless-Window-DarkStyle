@@ -28,19 +28,24 @@ FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
 
   restoreButton->setVisible(false);
 
-  //shadow under window title text
-  QGraphicsDropShadowEffect *textShadow = new QGraphicsDropShadowEffect;
-  textShadow->setBlurRadius(4.0);
-  textShadow->setColor(QColor(0,0,0));
-  textShadow->setOffset(0.0);
-  titleText->setGraphicsEffect(textShadow);
+  // add window shadow
+  if (   QSysInfo::productType().toLower() != "windows"
+     || (QSysInfo::productType().toLower() == "windows" && QSysInfo::productVersion().toInt() > 7) ) {
 
-  //window shadow
-  QGraphicsDropShadowEffect *windowShadow = new QGraphicsDropShadowEffect;
-  windowShadow->setBlurRadius(9.0);
-  windowShadow->setColor(palette().color(QPalette::Highlight));
-  windowShadow->setOffset(0.0);
-  windowFrame->setGraphicsEffect(windowShadow);
+     //shadow under window title text
+     QGraphicsDropShadowEffect *textShadow = new QGraphicsDropShadowEffect;
+     textShadow->setBlurRadius(4.0);
+     textShadow->setColor(QColor(0,0,0));
+     textShadow->setOffset(0.0);
+     titleText->setGraphicsEffect(textShadow);
+
+     //window shadow
+     QGraphicsDropShadowEffect *windowShadow = new QGraphicsDropShadowEffect;
+     windowShadow->setBlurRadius(9.0);
+     windowShadow->setColor(palette().color(QPalette::Highlight));
+     windowShadow->setOffset(0.0);
+     windowFrame->setGraphicsEffect(windowShadow);
+  }
 
   // watch mouse clicks on icon label and fire own signals
   MouseButtonSignaler signaler;
