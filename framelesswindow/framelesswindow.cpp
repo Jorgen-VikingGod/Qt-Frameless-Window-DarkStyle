@@ -29,8 +29,8 @@ FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
   restoreButton->setVisible(false);
 
   // add window shadow
-  if (   QSysInfo::productType() != "windows"
-     || (QSysInfo::productType() == "windows" && QSysInfo::productVersion() > "7") ) {
+  if (   QSysInfo::productType().toLower() != "windows"
+     || (QSysInfo::productType().toLower() == "windows" && QSysInfo::productVersion().toInt() > 7) ) {
 
      //shadow under window title text
      QGraphicsDropShadowEffect *textShadow = new QGraphicsDropShadowEffect;
@@ -169,10 +169,7 @@ void FramelessWindow::on_minimizeButton_clicked()
 }
 
 void FramelessWindow::on_restoreButton_clicked() {
-  if (  QSysInfo::productType() == "windows"
-     && QSysInfo::productVersion() == "7") {
-    layout()->setMargin(15);
-  }
+  layout()->setMargin(15);
   restoreButton->setVisible(false);
   maximizeButton->setVisible(true);
   setWindowState(Qt::WindowNoState);
@@ -180,10 +177,7 @@ void FramelessWindow::on_restoreButton_clicked() {
 }
 void FramelessWindow::on_maximizeButton_clicked()
 {
-  if (  QSysInfo::productType() == "windows"
-     && QSysInfo::productVersion() == "7") {
-    layout()->setMargin(0);
-  }
+  layout()->setMargin(0);
   restoreButton->setVisible(true);
   maximizeButton->setVisible(false);
   setWindowState(Qt::WindowMaximized);
