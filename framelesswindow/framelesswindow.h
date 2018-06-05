@@ -14,7 +14,12 @@
 #ifndef FRAMELESSWINDOW_H
 #define FRAMELESSWINDOW_H
 
-#include "ui_framelesswindow.h"
+#include <QEvent>
+#include <QtWidgets>
+
+namespace Ui {
+  class FramelessWindow;
+}
 
 class MouseButtonSignaler: public QObject
 {
@@ -39,7 +44,7 @@ signals:
   void mouseButtonEvent(QWidget *, QMouseEvent *);
 };
 
-class FramelessWindow: public QWidget, private Ui::FramelessWindow
+class FramelessWindow: public QWidget
 {
   Q_OBJECT
 
@@ -69,6 +74,9 @@ private slots:
 
 protected:
   virtual void changeEvent(QEvent *event);
+
+private:
+  Ui::FramelessWindow *ui;
 
 protected:
   QHBoxLayout contentLayout;

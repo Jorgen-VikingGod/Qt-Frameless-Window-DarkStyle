@@ -133,8 +133,7 @@ QGroupBox{
   background-color:rgba(66,66,66,50%);
   margin-top:27px;
   border:1px solid rgba(25,25,25,127);
-  border-top-left-radius:4px;
-  border-top-right-radius:4px;
+  border-radius:4px;
 }
 QGroupBox::title{
   subcontrol-origin:margin;
@@ -143,6 +142,7 @@ QGroupBox::title{
   margin-left:3px;
   background-color:qlineargradient(x1:0,y1:1,x2:0,y2:0,stop:0 rgba(25,25,25,127),stop:1 rgba(53,53,53,75));
   border:1px solid rgba(25,25,25,75);
+  border-bottom:2px solid rgb(127,127,127);
   border-top-left-radius:4px;
   border-top-right-radius:4px;
 }
@@ -171,7 +171,7 @@ QTabBar::tab:selected,QTabBar::tab:hover{
   border-bottom-color:rgba(66,66,66,75%);
 }
 QTabBar::tab:selected{
-  border-bottom-color:rgba(66,66,66,75%);
+  border-bottom:2px solid palette(highlight);
 }
 QTabBar::tab:!selected{
   margin-top:2px;
