@@ -173,6 +173,9 @@ QTabBar::tab:selected,QTabBar::tab:hover{
 QTabBar::tab:selected{
   border-bottom:2px solid palette(highlight);
 }
+QTabBar::tab::selected:disabled{
+  border-bottom:2px solid rgb(127,127,127);
+}
 QTabBar::tab:!selected{
   margin-top:2px;
 }
@@ -234,7 +237,6 @@ QTreeView, QTableView{
   background:palette(base);
 }
 QTreeView QHeaderView::section, QTableView QHeaderView::section{
-  /*height:24px;*/
   background-color:qlineargradient(x1:0,y1:1,x2:0,y2:0,stop:0 rgba(25,25,25,127),stop:1 rgba(53,53,53,75));
   border-style:none;
   border-bottom:1px solid palette(dark);
