@@ -73,7 +73,7 @@ void FramelessWindow::changeEvent(QEvent *event)
     if (windowState().testFlag(Qt::WindowNoState)) {
       on_restoreButton_clicked();
       event->ignore();
-    } else if (windowState().testFlag(Qt::WindowMaximized)) {
+    } else if (windowState().testFlag(Qt::WindowFullScreen)) {
       on_maximizeButton_clicked();
       event->ignore();
     }
@@ -155,7 +155,7 @@ void FramelessWindow::on_applicationStateChanged(Qt::ApplicationState state)
     } else {
       styleWindow(false, true);
     }
-  } else if (windowState().testFlag(Qt::WindowMaximized)) {
+  } else if (windowState().testFlag(Qt::WindowFullScreen)) {
     if (state == Qt::ApplicationActive) {
       styleWindow(true, false);
     } else {
@@ -181,7 +181,7 @@ void FramelessWindow::on_maximizeButton_clicked()
   layout()->setMargin(0);
   ui->restoreButton->setVisible(true);
   ui->maximizeButton->setVisible(false);
-  setWindowState(Qt::WindowMaximized);
+  setWindowState(Qt::WindowFullScreen);
   styleWindow(true, false);
 }
 void FramelessWindow::on_closeButton_clicked()
@@ -193,7 +193,7 @@ void FramelessWindow::on_windowTitlebar_doubleClicked()
 {
   if (windowState().testFlag(Qt::WindowNoState)) {
     on_maximizeButton_clicked();
-  } else if (windowState().testFlag(Qt::WindowMaximized)) {
+  } else if (windowState().testFlag(Qt::WindowFullScreen)) {
     on_restoreButton_clicked();
   }
 }
