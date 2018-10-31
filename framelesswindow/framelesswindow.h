@@ -23,8 +23,18 @@ class FramelessWindow: public QWidget, private Ui::FramelessWindow
 public:
   explicit FramelessWindow(QWidget *parent = 0);
   void setContent(QWidget *w);
+  virtual void	mouseDoubleClickEvent(QMouseEvent *event);
+  virtual void	mouseMoveEvent(QMouseEvent *event);
+  virtual void	mousePressEvent(QMouseEvent *event);
+  virtual void	mouseReleaseEvent(QMouseEvent *event);
+  virtual bool eventFilter(QObject *obj, QEvent *event);
 
 private:
+	bool LeftBorderHit(const QPoint & pos);
+	bool RightBorderHit(const QPoint & pos);
+	bool TopBorderHit(const QPoint & pos);
+	bool BottomBorderHit(const QPoint & pos);
+
   void styleWindow(bool bActive, bool bNoState);
 
 public slots:
@@ -43,6 +53,14 @@ protected:
 
 protected:
   QHBoxLayout contentLayout;
+
+  bool m_bMousePressed;
+  bool m_bDragTop;
+  bool m_bDragLeft;
+  bool m_bDragRight;
+  bool m_bDragBottom;
+
+  QRect m_StartGeometry;
 };
 
 #endif // FRAMELESSWINDOW_H
