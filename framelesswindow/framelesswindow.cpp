@@ -64,6 +64,9 @@ void FramelessWindow::on_restoreButton_clicked()
 	maximizeButton->setVisible(true);
 	setWindowState(Qt::WindowNoState);
 //	styleWindow(true, true);
+
+//on MacOS this hack makes sure the
+//background window is repaint correctly
     hide();
     show();
 }
@@ -184,19 +187,6 @@ void FramelessWindow::on_minimizeButton_clicked()
   setWindowState(Qt::WindowMinimized);
 }
 
-void FramelessWindow::on_restoreButton_clicked() {
-  restoreButton->setVisible(false);
-  maximizeButton->setVisible(true);
-  setWindowState(Qt::WindowNoState);
-  styleWindow(true, true);
-}
-void FramelessWindow::on_maximizeButton_clicked()
-{
-  restoreButton->setVisible(true);
-  maximizeButton->setVisible(false);
-  setWindowState(Qt::WindowMaximized);
-  styleWindow(true, false);
-}
 void FramelessWindow::on_closeButton_clicked()
 {
   close();
