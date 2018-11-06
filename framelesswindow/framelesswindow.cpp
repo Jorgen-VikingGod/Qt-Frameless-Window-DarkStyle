@@ -14,18 +14,12 @@
 #include <QGraphicsDropShadowEffect>
 #include <QApplication>
 #include <QDesktopWidget>
-#include <qdebug.h>
 #include "framelesswindow.h"
 
-int CONST_BORDER_SIZE = 15;
-
-FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent)
+FramelessWindow::FramelessWindow(QWidget *parent): QWidget(parent),
+	m_bMousePressed(false), m_bDragTop(false), m_bDragLeft(false), m_bDragRight(false), m_bDragBottom(false)
 {
-m_bDragTop = false;
-m_bDragLeft = false;
-m_bDragRight = false;
-m_bDragBottom = false;
-m_bMousePressed = false;
+
   setWindowFlags(Qt::FramelessWindowHint | Qt::WindowSystemMenuHint);
   // append minimize button flag in case of windows,
   // for correct windows native handling of minimize function
@@ -55,7 +49,9 @@ m_bMousePressed = false;
 
   QObject::connect(qApp, &QGuiApplication::applicationStateChanged, this, &FramelessWindow::on_applicationStateChanged);
   setMouseTracking(true);
-  //windowContent->setMouseTracking(true);
+  
+  //important to watch mouse move from all child widgets
+  QApplication::instance()->installEventFilter(this);
 }
 
 void FramelessWindow::on_restoreButton_clicked()
@@ -63,6 +59,7 @@ void FramelessWindow::on_restoreButton_clicked()
 	restoreButton->setVisible(false);
 	maximizeButton->setVisible(true);
 	setWindowState(Qt::WindowNoState);
+//not really needed here
 //	styleWindow(true, true);
 
 //on MacOS this hack makes sure the
@@ -85,18 +82,14 @@ void FramelessWindow::changeEvent(QEvent *event)
   if (event->type() == QEvent::WindowStateChange) {
     if (windowState().testFlag(Qt::WindowNoState)) 
 	{
-      //on_restoreButton_clicked();
 	  restoreButton->setVisible(false);
 	  maximizeButton->setVisible(true);
-	  //setWindowState(Qt::WindowNoState);
 	  styleWindow(true, true);
       event->ignore();
     } 
 	else if (windowState().testFlag(Qt::WindowMaximized)) {
-		//on_maximizeButton_clicked();
 		restoreButton->setVisible(true);
 		maximizeButton->setVisible(false);
-		//setWindowState(Qt::WindowMaximized);
 		styleWindow(true, false);
 		event->ignore();
     }
@@ -206,7 +199,7 @@ void FramelessWindow::mouseDoubleClickEvent(QMouseEvent *event)
 
 }
 
-void FramelessWindow::mouseMoveEvent(QMouseEvent *ee)
+void FramelessWindow::checkBorderDragging(QMouseEvent *ee)
 {
 	if (isMaximized()) 
 	{
@@ -218,9 +211,9 @@ void FramelessWindow::mouseMoveEvent(QMouseEvent *ee)
 	if (m_bMousePressed)
 	{
 		//available geometry excludes taskbar
-		QRect rec = QApplication::desktop()->availableGeometry();
-		int h = rec.height();
-		int w = rec.width();
+		QRect availGeometry = QApplication::desktop()->availableGeometry();
+		int h = availGeometry.height();
+		int w = availGeometry.width();
 		if (QApplication::desktop()->isVirtualDesktop())
 		{
 			QSize sz = QApplication::desktop()->size();
@@ -340,32 +333,28 @@ void FramelessWindow::mouseMoveEvent(QMouseEvent *ee)
 		}
 		else
 		{
-			//this does not clear the cursor
-			//because children will take care about mouse move then
-
 			if (TopBorderHit(globalMousePos))
 			{
-				//qDebug() << "Top: " << globalMousePos;
 				setCursor(Qt::SizeVerCursor);
 			}
 			else if (LeftBorderHit(globalMousePos))
 			{
-				//qDebug() << "Left: " << globalMousePos;
 				setCursor(Qt::SizeHorCursor);
 			}
 			else if (RightBorderHit(globalMousePos))
 			{
-				//qDebug() << "Right: " << globalMousePos;
 				setCursor(Qt::SizeHorCursor);
 			}
 			else if (BottomBorderHit(globalMousePos))
 			{
-				//qDebug() << "Bottom: " << globalMousePos;
 				setCursor(Qt::SizeVerCursor);
 			}
 			else
 			{
-				//qDebug() << "None: " << globalMousePos;
+				m_bDragTop = false;
+				m_bDragLeft = false;
+				m_bDragRight = false;
+				m_bDragBottom = false;
 				setCursor(Qt::ArrowCursor);
 			}
 		}
@@ -377,7 +366,7 @@ void FramelessWindow::mouseMoveEvent(QMouseEvent *ee)
 bool FramelessWindow::LeftBorderHit(const QPoint & pos) 
 {
 	const QRect & rect = this->geometry();
-	if (pos.x() >= rect.x() && pos.x() <= rect.x() + CONST_BORDER_SIZE)
+	if (pos.x() >= rect.x() && pos.x() <= rect.x() + CONST_DRAG_BORDER_SIZE)
 	{
 		return true;
 	}
@@ -388,7 +377,7 @@ bool FramelessWindow::RightBorderHit(const QPoint & pos)
 {
 	const QRect & rect = this->geometry();
 	int tmp = rect.x() + rect.width();
-	if (pos.x() <= tmp && pos.x() >= (tmp-CONST_BORDER_SIZE))
+	if (pos.x() <= tmp && pos.x() >= (tmp - CONST_DRAG_BORDER_SIZE))
 	{
 		return true;
 	}
@@ -398,7 +387,7 @@ bool FramelessWindow::RightBorderHit(const QPoint & pos)
 bool FramelessWindow::TopBorderHit(const QPoint & pos)
 {
 	const QRect & rect = this->geometry();
-	if (pos.y() >= rect.y() && pos.y() <= rect.y() + CONST_BORDER_SIZE)
+	if (pos.y() >= rect.y() && pos.y() <= rect.y() + CONST_DRAG_BORDER_SIZE)
 	{
 		return true;
 	}
@@ -409,7 +398,7 @@ bool FramelessWindow::BottomBorderHit(const QPoint & pos)
 {
 	const QRect & rect = this->geometry();
 	int tmp = rect.y() + rect.height();
-	if (pos.y() <= tmp && pos.y() >= (tmp - CONST_BORDER_SIZE))
+	if (pos.y() <= tmp && pos.y() >= (tmp - CONST_DRAG_BORDER_SIZE))
 	{
 		return true;
 	}
@@ -479,12 +468,12 @@ void FramelessWindow::mouseReleaseEvent(QMouseEvent *event)
 	}
 
 	m_bMousePressed = false;
-	bool bSwitchBackneeded = m_bDragTop || m_bDragLeft || m_bDragRight || m_bDragBottom;
+	bool bSwitchBackCursorNeeded = m_bDragTop || m_bDragLeft || m_bDragRight || m_bDragBottom;
 	m_bDragTop = false;
 	m_bDragLeft = false;
 	m_bDragRight = false;
 	m_bDragBottom = false;
-	if (bSwitchBackneeded) {
+	if (bSwitchBackCursorNeeded) {
 		setCursor(Qt::ArrowCursor);
 	}
 }
@@ -495,16 +484,13 @@ bool FramelessWindow::eventFilter(QObject *obj, QEvent *event)
 	{
 		return QWidget::eventFilter(obj, event);
 	}
-
+	
+	//check mouse move event when mouse is moved on any object
 	if (event->type() == QEvent::MouseMove)
 	{
 		QMouseEvent * pMouse = dynamic_cast<QMouseEvent*>(event);
 		if (pMouse) {
-			mouseMoveEvent(pMouse);
-			if (m_bMousePressed) 
-			{
-				return true;
-			}
+			checkBorderDragging(pMouse);
 		}
 	}
 	//press is triggered only on frame window
@@ -521,9 +507,10 @@ bool FramelessWindow::eventFilter(QObject *obj, QEvent *event)
 			QMouseEvent * pMouse = dynamic_cast<QMouseEvent*>(event);
 			if (pMouse) {
 				mouseReleaseEvent(pMouse);
-				return true;
 			}
 		}
 	}
+
+
 	return QWidget::eventFilter(obj, event);
 }
