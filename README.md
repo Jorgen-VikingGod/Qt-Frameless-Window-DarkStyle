@@ -19,6 +19,8 @@ Look is based on the VS2013 application window (flat and frameless window)
 * tested with Qt5.5.0, Qt5.9.0 and Qt5.10.0
 * tested on Windows 7, Windows 10,MacOSX 10.12.5 and MacOS 10.13.2
 
+## PyQt5
+Here is an [unofficial Python port](https://github.com/gmarull/qtmodern) of my implementation.
 
 ## How to use
 * add additional include plath to **framelesswindow**
