@@ -14,57 +14,32 @@
 #ifndef FRAMELESSWINDOW_H
 #define FRAMELESSWINDOW_H
 
-#include <QEvent>
-#include <QtWidgets>
+#include <QWidget>
 
 namespace Ui {
-  class FramelessWindow;
+class FramelessWindow;
 }
 
-class MouseButtonSignaler: public QObject
-{
+class FramelessWindow : public QWidget {
   Q_OBJECT
 
-public:
-  MouseButtonSignaler(QObject * parent = 0) : QObject(parent) {}
-  void installOn(QWidget * widget) { widget->installEventFilter(this); }
-
-protected:
-  virtual bool eventFilter(QObject * obj, QEvent * ev) Q_DECL_OVERRIDE {
-    if ((   ev->type() == QEvent::MouseButtonPress
-         || ev->type() == QEvent::MouseButtonRelease
-         || ev->type() == QEvent::MouseButtonDblClick)
-        && obj->isWidgetType()) {
-      emit mouseButtonEvent(static_cast<QWidget*>(obj),
-                            static_cast<QMouseEvent*>(ev));
-    }
-    return false;
-  }
-signals:
-  void mouseButtonEvent(QWidget *, QMouseEvent *);
-};
-
-class FramelessWindow: public QWidget
-{
-  Q_OBJECT
-
-public:
-  explicit FramelessWindow(QWidget *parent = 0);
+ public:
+  explicit FramelessWindow(QWidget *parent = Q_NULLPTR);
+  virtual ~FramelessWindow();
   void setContent(QWidget *w);
 
-private:
+ private:
+  bool leftBorderHit(const QPoint &pos);
+  bool rightBorderHit(const QPoint &pos);
+  bool topBorderHit(const QPoint &pos);
+  bool bottomBorderHit(const QPoint &pos);
   void styleWindow(bool bActive, bool bNoState);
 
-signals:
-  void windowIconLeftClicked();
-  void windowIconRightClicked();
-  void windowIconDblClick();
-
-public slots:
+ public slots:
   void setWindowTitle(const QString &text);
   void setWindowIcon(const QIcon &ico);
 
-private slots:
+ private slots:
   void on_applicationStateChanged(Qt::ApplicationState state);
   void on_minimizeButton_clicked();
   void on_restoreButton_clicked();
@@ -72,14 +47,23 @@ private slots:
   void on_closeButton_clicked();
   void on_windowTitlebar_doubleClicked();
 
-protected:
+ protected:
   virtual void changeEvent(QEvent *event);
+  virtual void mouseDoubleClickEvent(QMouseEvent *event);
+  virtual void checkBorderDragging(QMouseEvent *event);
+  virtual void mousePressEvent(QMouseEvent *event);
+  virtual void mouseReleaseEvent(QMouseEvent *event);
+  virtual bool eventFilter(QObject *obj, QEvent *event);
 
-private:
+ private:
   Ui::FramelessWindow *ui;
-
-protected:
-  QHBoxLayout contentLayout;
+  QRect m_StartGeometry;
+  const quint8 CONST_DRAG_BORDER_SIZE = 15;
+  bool m_bMousePressed;
+  bool m_bDragTop;
+  bool m_bDragLeft;
+  bool m_bDragRight;
+  bool m_bDragBottom;
 };
 
-#endif // FRAMELESSWINDOW_H
+#endif  // FRAMELESSWINDOW_H
