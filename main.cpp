@@ -16,8 +16,7 @@
 #include "framelesswindow.h"
 #include "mainwindow.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
 
   // style our application with custom dark style
@@ -25,8 +24,8 @@ int main(int argc, char *argv[])
 
   // create frameless window (and set windowState or title)
   FramelessWindow framelessWindow;
-  //framelessWindow.setWindowState(Qt::WindowMaximized);
-  //framelessWindow.setWindowTitle("test title");
+  // framelessWindow.setWindowState(Qt::WindowMaximized);
+  // framelessWindow.setWindowTitle("test title");
 
   // create our mainwindow instance
   MainWindow *mainWindow = new MainWindow;
