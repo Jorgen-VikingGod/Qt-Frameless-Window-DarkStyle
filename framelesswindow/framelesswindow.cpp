@@ -106,6 +106,10 @@ void FramelessWindow::setWindowTitle(const QString &text) {
   ui->titleText->setText(text);
 }
 
+void FramelessWindow::setWindowIcon(const QIcon &ico) {
+  ui->icon->setPixmap(ico.pixmap(16, 16));
+}
+
 void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
   if (bActive) {
     if (bNoState) {
