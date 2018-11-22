@@ -71,8 +71,8 @@ int main(int argc, char *argv[])
 
 
 ## todo
-* [resize window on each corner [#1]](https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle/issues/1)
-* [snap on screen edges [#3]](https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle/issues/3)
+* [ ] [resize window on each corner [#1]](https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle/issues/1) (some work done by [notecola](https://github.com/notecola) :+1:)
+* [ ] [snap on screen edges [#3]](https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle/issues/3)
 
 
 ## thanks
