@@ -15,6 +15,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QGraphicsDropShadowEffect>
+#include <QScreen>
 
 #include "ui_framelesswindow.h"
 
