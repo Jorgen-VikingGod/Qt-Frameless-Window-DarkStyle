@@ -215,11 +215,13 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 
   QPoint globalMousePos = event->globalPos();
   if (m_bMousePressed) {
-    // available geometry excludes taskbar
-    QRect availGeometry = QApplication::desktop()->availableGeometry();
+    QScreen *screen = QGuiApplication::primaryScreen();
+	// available geometry excludes taskbar
+    QRect availGeometry = screen->availableGeometry();
     int h = availGeometry.height();
     int w = availGeometry.width();
-    if (QApplication::desktop()->isVirtualDesktop()) {
+    QList<QScreen *> screenlist = screen->virtualSiblings();
+    if (screenlist.contains(screen)) {
       QSize sz = QApplication::desktop()->size();
       h = sz.height();
       w = sz.width();
