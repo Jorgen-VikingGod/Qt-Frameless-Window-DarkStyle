@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
   QApplication a(argc, argv);
 
   // style our application with custom dark style
-  a.setStyle(new DarkStyle);
+  QApplication::setStyle(new DarkStyle);
+  QApplication::setPalette(QApplication::style()->standardPalette());
 
   // create frameless window (and set windowState or title)
   FramelessWindow framelessWindow;
