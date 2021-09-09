@@ -179,6 +179,19 @@ QTabBar::tab::selected:disabled{
 QTabBar::tab:!selected{
   margin-top:2px;
 }
+QTabBar::close-button {
+  image:url(:/darkstyle/icon_close.png);
+  border:1px solid transparent;
+  border-radius:2px;
+}
+QTabBar::close-button:hover {
+  background-color:qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 rgba(106,106,106,255),stop:1 rgba(106,106,106,75));
+  border:1px solid palette(base);
+}
+QTabBar::close-button:pressed {
+  background-color:qlineargradient(x1:0,y1:1,x2:0,y2:0,stop:0 rgba(25,25,25,127),stop:1 rgba(53,53,53,75));
+  border:1px solid palette(base);
+}
 QCheckBox::indicator{
   width:18px;
   height:18px;
