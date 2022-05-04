@@ -22,6 +22,10 @@ Look is based on the VS2013 application window (flat and frameless window)
 ## PyQt5
 Here is an [unofficial Python port](https://github.com/gmarull/qtmodern) of my implementation.
 
+## Alternative Window class
+* take a look to this awesome project: https://github.com/antonypro/QGoodWindow
+* most of the open todos of Qt-Frameless-Window is handled by QGoodWindow already for Linux, MacOS and Windows.
+
 ## How to use
 * add additional include plath to **framelesswindow**
 * add resources **framelesswindow.qrc** and **darkstyle.qrc**
