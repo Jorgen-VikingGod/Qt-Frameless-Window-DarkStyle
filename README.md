@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 * title bar
 * buttons (minimize | restore | maximize | close)
 * move window by drag the title bar
-* dobule click title bar to toggle between window styte (maximize and normal)
+* double click title bar to toggle between window styte (maximize and normal)
 * use of native events, like minimizing or system menu
 
 
