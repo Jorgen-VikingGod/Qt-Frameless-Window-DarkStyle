@@ -38,3 +38,9 @@ Makefile*
 CMakeLists.txt.user*
 
 .directory
+
+build
+
+compile_commands.json
+
+.cache
