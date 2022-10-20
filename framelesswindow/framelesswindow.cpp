@@ -228,12 +228,12 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
       w = sz.width();
     }
 
+    QPoint widgetGlobalPos = parentWidget()->mapToGlobal(QPoint(m_StartGeometry.x(), m_StartGeometry.y()));
     // top right corner
     if (m_bDragTop && m_bDragRight) {
-      int diff =
-          globalMousePos.x() - (m_StartGeometry.x() + m_StartGeometry.width());
+      int diff = globalMousePos.x() - (widgetGlobalPos.x() + m_StartGeometry.width());
       int neww = m_StartGeometry.width() + diff;
-      diff = globalMousePos.y() - m_StartGeometry.y();
+      diff = globalMousePos.y() - widgetGlobalPos.y();
       int newy = m_StartGeometry.y() + diff;
       if (neww > 0 && newy > 0 && newy < h - 50) {
         QRect newg = m_StartGeometry;
@@ -245,9 +245,9 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
     }
     // top left corner
     else if (m_bDragTop && m_bDragLeft) {
-      int diff = globalMousePos.y() - m_StartGeometry.y();
+      int diff = globalMousePos.y() - widgetGlobalPos.y();
       int newy = m_StartGeometry.y() + diff;
-      diff = globalMousePos.x() - m_StartGeometry.x();
+      diff = globalMousePos.x() - widgetGlobalPos.x();
       int newx = m_StartGeometry.x() + diff;
       if (newy > 0 && newx > 0) {
         QRect newg = m_StartGeometry;
@@ -256,12 +256,11 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
         setGeometry(newg);
       }
     }
-    // bottom right corner
+    // bottom left corner
     else if (m_bDragBottom && m_bDragLeft) {
-      int diff =
-          globalMousePos.y() - (m_StartGeometry.y() + m_StartGeometry.height());
+      int diff = globalMousePos.y() - (widgetGlobalPos.y() + m_StartGeometry.height());
       int newh = m_StartGeometry.height() + diff;
-      diff = globalMousePos.x() - m_StartGeometry.x();
+      diff = globalMousePos.x() - widgetGlobalPos.x();
       int newx = m_StartGeometry.x() + diff;
       if (newh > 0 && newx > 0) {
         QRect newg = m_StartGeometry;
@@ -269,8 +268,24 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
         newg.setHeight(newh);
         setGeometry(newg);
       }
-    } else if (m_bDragTop) {
-      int diff = globalMousePos.y() - m_StartGeometry.y();
+    }
+    // bottom right corner
+    else if (m_bDragBottom && m_bDragRight) {
+        int diff = globalMousePos.y() - (widgetGlobalPos.y() + m_StartGeometry.height());
+        int newh = m_StartGeometry.height() + diff;
+
+        diff = globalMousePos.x() - (widgetGlobalPos.x() + m_StartGeometry.width());
+        int neww = m_StartGeometry.width() + diff;
+
+        if (newh > 0 && neww > 0) {
+            QRect newg = m_StartGeometry;
+            newg.setWidth(neww);
+            newg.setHeight(newh);
+            setGeometry(newg);
+        }
+    }
+    else if (m_bDragTop) {
+      int diff = globalMousePos.y() - widgetGlobalPos.y();
       int newy = m_StartGeometry.y() + diff;
       if (newy > 0 && newy < h - 50) {
         QRect newg = m_StartGeometry;
@@ -278,7 +293,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
         setGeometry(newg);
       }
     } else if (m_bDragLeft) {
-      int diff = globalMousePos.x() - m_StartGeometry.x();
+      int diff = globalMousePos.x() - widgetGlobalPos.x();
       int newx = m_StartGeometry.x() + diff;
       if (newx > 0 && newx < w - 50) {
         QRect newg = m_StartGeometry;
@@ -287,7 +302,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
       }
     } else if (m_bDragRight) {
       int diff =
-          globalMousePos.x() - (m_StartGeometry.x() + m_StartGeometry.width());
+          globalMousePos.x() - (widgetGlobalPos.x() + m_StartGeometry.width());
       int neww = m_StartGeometry.width() + diff;
       if (neww > 0) {
         QRect newg = m_StartGeometry;
@@ -297,7 +312,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
       }
     } else if (m_bDragBottom) {
       int diff =
-          globalMousePos.y() - (m_StartGeometry.y() + m_StartGeometry.height());
+          globalMousePos.y() - (widgetGlobalPos.y() + m_StartGeometry.height());
       int newh = m_StartGeometry.height() + diff;
       if (newh > 0) {
         QRect newg = m_StartGeometry;
@@ -312,10 +327,11 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
       setCursor(Qt::SizeFDiagCursor);
     } else if (rightBorderHit(globalMousePos) && topBorderHit(globalMousePos)) {
       setCursor(Qt::SizeBDiagCursor);
-    } else if (leftBorderHit(globalMousePos) &&
-               bottomBorderHit(globalMousePos)) {
+    } else if (leftBorderHit(globalMousePos) && bottomBorderHit(globalMousePos)) {
       setCursor(Qt::SizeBDiagCursor);
-    } else {
+    } else if (rightBorderHit(globalMousePos) && bottomBorderHit(globalMousePos)) {
+        setCursor(Qt::SizeFDiagCursor);
+    }else {
       if (topBorderHit(globalMousePos)) {
         setCursor(Qt::SizeVerCursor);
       } else if (leftBorderHit(globalMousePos)) {
@@ -338,7 +354,8 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 // pos in global virtual desktop coordinates
 bool FramelessWindow::leftBorderHit(const QPoint &pos) {
   const QRect &rect = this->geometry();
-  if (pos.x() >= rect.x() && pos.x() <= rect.x() + CONST_DRAG_BORDER_SIZE) {
+  QPoint gp = parentWidget()->mapToGlobal(QPoint(rect.x(), rect.y()));
+  if (pos.x() >= gp.x() && pos.x() <= gp.x() + CONST_DRAG_BORDER_SIZE) {
     return true;
   }
   return false;
@@ -346,7 +363,8 @@ bool FramelessWindow::leftBorderHit(const QPoint &pos) {
 
 bool FramelessWindow::rightBorderHit(const QPoint &pos) {
   const QRect &rect = this->geometry();
-  int tmp = rect.x() + rect.width();
+  QPoint gp = parentWidget()->mapToGlobal(QPoint(rect.x(), rect.y()));
+  int tmp = gp.x() + rect.width();
   if (pos.x() <= tmp && pos.x() >= (tmp - CONST_DRAG_BORDER_SIZE)) {
     return true;
   }
@@ -355,7 +373,9 @@ bool FramelessWindow::rightBorderHit(const QPoint &pos) {
 
 bool FramelessWindow::topBorderHit(const QPoint &pos) {
   const QRect &rect = this->geometry();
-  if (pos.y() >= rect.y() && pos.y() <= rect.y() + CONST_DRAG_BORDER_SIZE) {
+  QPoint gp = parentWidget()->mapToGlobal(QPoint(rect.x(), rect.y()));
+
+  if (pos.y() >= gp.y() && pos.y() <= gp.y() + CONST_DRAG_BORDER_SIZE) {
     return true;
   }
   return false;
@@ -363,7 +383,9 @@ bool FramelessWindow::topBorderHit(const QPoint &pos) {
 
 bool FramelessWindow::bottomBorderHit(const QPoint &pos) {
   const QRect &rect = this->geometry();
-  int tmp = rect.y() + rect.height();
+  QPoint gp = parentWidget()->mapToGlobal(QPoint(rect.x(), rect.y()));
+
+  int tmp = gp.y() + rect.height();
   if (pos.y() <= tmp && pos.y() >= (tmp - CONST_DRAG_BORDER_SIZE)) {
     return true;
   }
@@ -392,7 +414,11 @@ void FramelessWindow::mousePressEvent(QMouseEvent *event) {
     m_bDragLeft = true;
     m_bDragBottom = true;
     setCursor(Qt::SizeBDiagCursor);
-  } else {
+  } else if (rightBorderHit(globalMousePos) && bottomBorderHit(globalMousePos)) {
+      m_bDragRight = true;
+      m_bDragBottom = true;
+      setCursor(Qt::SizeFDiagCursor);
+  }else {
     if (topBorderHit(globalMousePos)) {
       m_bDragTop = true;
       setCursor(Qt::SizeVerCursor);
