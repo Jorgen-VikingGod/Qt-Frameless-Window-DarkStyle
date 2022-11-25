@@ -1,3 +1,4 @@
+/*
 ###############################################################################
 #                                                                             #
 # The MIT License                                                             #
@@ -8,31 +9,34 @@
 # Sources: https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle  #
 #                                                                             #
 ###############################################################################
+*/
 
-QT       += core gui
+#ifndef DARKSTYLE_HPP
+#define DARKSTYLE_HPP
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+#include <QApplication>
+#include <QFile>
+#include <QFont>
+#include <QProxyStyle>
+#include <QStyleFactory>
 
-INCLUDEPATH +="framelesswindow"
+#include "Qt-Frameless-Window-DarkStyle/Qt-Frameless-Window-DarkStyle_export.hpp"
 
-TARGET      =  QtFramelessWindowDarkStyle
-TEMPLATE    =  app
+class QT_FRAMELESS_WINDOW_DARKSTYLE_EXPORT DarkStyle : public QProxyStyle
+{
+  Q_OBJECT
 
-SOURCES     += main.cpp\
-               mainwindow.cpp \
-               framelesswindow/framelesswindow.cpp \
-               framelesswindow/windowdragger.cpp \
-               DarkStyle.cpp
+public:
+  DarkStyle();
+  explicit DarkStyle(QStyle* style);
 
+  QStyle* baseStyle() const;
 
-HEADERS     += mainwindow.h \
-               framelesswindow/framelesswindow.h \
-               framelesswindow/windowdragger.h \
-               DarkStyle.h
+  void polish(QPalette& palette) override;
+  void polish(QApplication* app) override;
 
+private:
+  QStyle* styleBase(QStyle* style = Q_NULLPTR) const;
+};
 
-FORMS       += mainwindow.ui \
-               framelesswindow/framelesswindow.ui
-
-RESOURCES   += darkstyle.qrc \
-               framelesswindow.qrc
+#endif  // DARKSTYLE_HPP
