@@ -1,18 +1,18 @@
 cmake_minimum_required(VERSION 3.14)
-
-include(cmake/prelude.cmake)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+include(${CMAKE_MODULE_PATH}/prelude.cmake)
 
 project(
   Qt-Frameless-Window-DarkStyle
   VERSION 0.1.0
   DESCRIPTION "simple MainWindow class implementation with frameless window and custom dark style. "
-  HOMEPAGE_URL "https://example.com/"
+  HOMEPAGE_URL "https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle"
   LANGUAGES CXX
 )
 
-include(cmake/project-is-top-level.cmake)
-include(cmake/variables.cmake)
-include(cmake/link_qt.cmake)
+include(${CMAKE_MODULE_PATH}/project-is-top-level.cmake)
+include(${CMAKE_MODULE_PATH}/variables.cmake)
+include(${CMAKE_MODULE_PATH}/link_qt.cmake)
 
 # NOTE -  Set to OFF to build static lib
 qt5_add_resources(
@@ -79,7 +79,7 @@ target_compile_features(Qt-Frameless-Window-DarkStyle PUBLIC cxx_std_17)
 
 # ---- Install rules ----
 if(NOT CMAKE_SKIP_INSTALL_RULES)
-  include(cmake/install-rules.cmake)
+  include(${CMAKE_MODULE_PATH}/install-rules.cmake)
 endif()
 
 # ---- Examples ----
