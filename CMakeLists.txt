@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
-include(${CMAKE_MODULE_PATH}/prelude.cmake)
+include(prelude)
 
 project(
   Qt-Frameless-Window-DarkStyle
@@ -10,11 +10,10 @@ project(
   LANGUAGES CXX
 )
 
-include(${CMAKE_MODULE_PATH}/project-is-top-level.cmake)
-include(${CMAKE_MODULE_PATH}/variables.cmake)
-include(${CMAKE_MODULE_PATH}/link_qt.cmake)
+include(project-is-top-level)
+include(variables)
+include(link_qt)
 
-# NOTE -  Set to OFF to build static lib
 qt5_add_resources(
   icon_res
   ${CMAKE_CURRENT_SOURCE_DIR}/source/framelesswindow.qrc
@@ -25,7 +24,11 @@ qt5_add_resources(
   ${CMAKE_CURRENT_SOURCE_DIR}/source/darkstyle.qrc
 )
 
-set(BUILD_SHARED_LIBS ON)
+option(BUILD_FRANELESS_DARAKSTYLE_STATIC "Set to ON to build staic lib" OFF)
+
+if(NOT BUILD_FRANELESS_DARAKSTYLE_STATIC)
+  set(BUILD_SHARED_LIBS ON)
+endif()
 
 # ---- Declare library ----
 add_library(
@@ -79,7 +82,7 @@ target_compile_features(Qt-Frameless-Window-DarkStyle PUBLIC cxx_std_17)
 
 # ---- Install rules ----
 if(NOT CMAKE_SKIP_INSTALL_RULES)
-  include(${CMAKE_MODULE_PATH}/install-rules.cmake)
+  include(install-rules)
 endif()
 
 # ---- Examples ----
