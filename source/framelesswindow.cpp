@@ -13,10 +13,10 @@
 
 #include "framelesswindow.h"
 #include <QApplication>
-#include <QDesktopWidget>
+//#include <QDesktopWidget>
 #include <QGraphicsDropShadowEffect>
 #include <QScreen>
-
+#include <qlayout.h>
 #include "ui_framelesswindow.h"
 
 FramelessWindow::FramelessWindow(QWidget *parent)
@@ -112,9 +112,12 @@ void FramelessWindow::setWindowIcon(const QIcon &ico) {
 }
 
 void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
+  //https://doc.qt.io/qt-5/qlayout-obsolete.html
+  static const auto kNonStateMargin = QMargins(15, 15,15,15);
+
   if (bActive) {
     if (bNoState) {
-      layout()->setMargin(15);
+      layout()->setContentsMargins(kNonStateMargin);
       ui->windowTitlebar->setStyleSheet(QStringLiteral(
           "#windowTitlebar{border: 0px none palette(shadow); "
           "border-top-left-radius:5px; border-top-right-radius:5px; "
@@ -130,7 +133,7 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
       windowShadow->setOffset(0.0);
       ui->windowFrame->setGraphicsEffect(windowShadow);
     } else {
-      layout()->setMargin(0);
+      layout()->setContentsMargins(QMargins());
       ui->windowTitlebar->setStyleSheet(QStringLiteral(
           "#windowTitlebar{border: 0px none palette(shadow); "
           "border-top-left-radius:0px; border-top-right-radius:0px; "
@@ -144,7 +147,7 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
     }  // if (bNoState) else maximize
   } else {
     if (bNoState) {
-      layout()->setMargin(15);
+      layout()->setContentsMargins(kNonStateMargin);
       ui->windowTitlebar->setStyleSheet(QStringLiteral(
           "#windowTitlebar{border: 0px none palette(shadow); "
           "border-top-left-radius:5px; border-top-right-radius:5px; "
@@ -160,7 +163,7 @@ void FramelessWindow::styleWindow(bool bActive, bool bNoState) {
       windowShadow->setOffset(0.0);
       ui->windowFrame->setGraphicsEffect(windowShadow);
     } else {
-      layout()->setMargin(0);
+      layout()->setContentsMargins(QMargins());
       ui->windowTitlebar->setStyleSheet(QStringLiteral(
           "#titlebarWidget{border: 0px none palette(shadow); "
           "border-top-left-radius:0px; border-top-right-radius:0px; "
@@ -224,7 +227,10 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
     int w = availGeometry.width();
     QList<QScreen *> screenlist = screen->virtualSiblings();
     if (screenlist.contains(screen)) {
-      QSize sz = QApplication::desktop()->size();
+//      QSize sz = QApplication::desktop()->size();
+      //Re: [Development] how to get WinId of desktop in Qt6 without QDesktopWidget ?
+      //https://www.mail-archive.com/development@qt-project.org/msg39200.html
+      const auto sz = screen->grabWindow(0).size() ;
       h = sz.height();
       w = sz.width();
     }
