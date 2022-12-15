@@ -14,15 +14,26 @@ include(project-is-top-level)
 include(variables)
 include(link_qt)
 
-qt5_add_resources(
-  icon_res
-  ${CMAKE_CURRENT_SOURCE_DIR}/source/framelesswindow.qrc
-)
+if(NOT Qt6_FOUND)
+  qt5_add_resources(
+    icon_res
+    ${CMAKE_CURRENT_SOURCE_DIR}/source/framelesswindow.qrc
+  )
 
-qt5_add_resources(
-  style_res
-  ${CMAKE_CURRENT_SOURCE_DIR}/source/darkstyle.qrc
-)
+  qt5_add_resources(
+    style_res
+    ${CMAKE_CURRENT_SOURCE_DIR}/source/darkstyle.qrc
+  )
+else()
+  qt_add_resources(
+    icon_res
+    ${CMAKE_CURRENT_SOURCE_DIR}/source/framelesswindow.qrc
+  )
+  qt_add_resources(
+    style_res
+    ${CMAKE_CURRENT_SOURCE_DIR}/source/darkstyle.qrc
+  )
+endif()
 
 option(BUILD_FRANELESS_DARAKSTYLE_STATIC "Set to ON to build staic lib" OFF)
 

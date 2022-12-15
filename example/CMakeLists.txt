@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.14)
 
 project(Qt-Frameless-Window-DarkStyleExamples CXX)
 
-include(../cmake/project-is-top-level.cmake)
-include(../cmake/folders.cmake)
-include(../cmake/link_qt.cmake)
+include(project-is-top-level)
+include(folders)
+include(link_qt)
 
 if(PROJECT_IS_TOP_LEVEL)
   find_package(Qt-Frameless-Window-DarkStyle REQUIRED)
